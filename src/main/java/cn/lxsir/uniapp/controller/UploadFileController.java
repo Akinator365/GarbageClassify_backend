@@ -2,6 +2,7 @@ package cn.lxsir.uniapp.controller;
 
 import cn.lxsir.uniapp.service.BaiduService;
 import cn.lxsir.uniapp.service.CommonService;
+import cn.lxsir.uniapp.service.ImageClassifyService;
 import cn.lxsir.uniapp.service.QuestionBankService;
 import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.Api;
@@ -34,6 +35,9 @@ public class UploadFileController {
     CommonService commonService;
 
     @Autowired
+    ImageClassifyService imageClassifyService;
+
+    @Autowired
     QuestionBankService qbService;
 
     @Value("${upload.image.path}")
@@ -53,13 +57,21 @@ public class UploadFileController {
     }
 
     @PostMapping("/image")
-    @ApiOperation(value = " 通过上传图像进行图像识别其垃圾分类")
+    @ApiOperation(value = " 上传图像接口")
     public R uploadImage(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return R.failed("文件为空");
         }
-        String path = commonService.handleUploadFile(file,imagePath);
+        String path = imageClassifyService.handleUploadFile(file,imagePath);
         Map<String, Object> map = baiduService.imageClassify(path);
+        return R.ok(map);
+    }
+
+    @PostMapping("/imageIdentity")
+    @ApiOperation(value = "对图像的识别结果和图片进行匹配")
+    public R imageIdentity(@RequestParam Map<String,Object> imageInfoMap) {
+
+        Map<String, Object> map = imageClassifyService.imageMatch(imageInfoMap);
         return R.ok(map);
     }
 

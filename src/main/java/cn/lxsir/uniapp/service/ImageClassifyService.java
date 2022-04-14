@@ -4,8 +4,10 @@ import cn.lxsir.uniapp.entity.ImageClassify;
 import cn.lxsir.uniapp.entity.QuestionBank;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.json.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -18,5 +20,9 @@ import java.util.List;
 public interface ImageClassifyService extends IService<ImageClassify> {
 
     void imageHandle(String filename, JSONObject res, JSONObject resultVo, List<QuestionBank> questionBanks, QuestionBank questionBankOne);
+
+    Map<String, Object> imageMatch(Map<String,Object> imageInfoMap);
+
+    String handleUploadFile(MultipartFile file, String path);
 
 }

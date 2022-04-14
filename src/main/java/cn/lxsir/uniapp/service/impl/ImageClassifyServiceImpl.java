@@ -18,8 +18,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * <p>
@@ -65,5 +72,42 @@ public class ImageClassifyServiceImpl extends ServiceImpl<ImageClassifyMapper, I
         }
         ksnService.saveOrUpdate(keywordNum);
 
+    }
+
+    @Override
+    public Map<String, Object> imageMatch(Map<String, Object> imageInfoMap) {
+
+
+        return null;
+    }
+
+    @Override
+    public String handleUploadFile(MultipartFile file, String path) {
+        String fileName = file.getOriginalFilename();
+        System.out.println("filename:" + fileName);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        LocalDateTime now = LocalDateTime.now();
+        File filePathIF = new File(path, String.valueOf(now.getYear()));
+        if (!filePathIF.exists()) {
+            filePathIF.mkdir();
+            filePathIF = new File(filePathIF.getAbsolutePath(), String.valueOf(now.getMonthValue()));
+            if (!filePathIF.exists()) {
+                filePathIF.mkdir();
+                filePathIF = new File(filePathIF.getAbsolutePath(), String.valueOf(now.getDayOfMonth()));
+                if (!filePathIF.exists()) {
+                    filePathIF.mkdir();
+                }
+            }
+        }
+        String[] split = fileName.split("\\.");
+        String newFileName = UUID.randomUUID().toString().toLowerCase() + "." + split[split.length - 1];
+        File dest = new File(filePathIF, newFileName);
+        try {
+            file.transferTo(dest);
+        } catch (IOException e) {
+            log.error("文件处理失败：" + e.getMessage());
+            throw new RuntimeException("文件处理失败");
+        }
+        return dest.getAbsolutePath();
     }
 }

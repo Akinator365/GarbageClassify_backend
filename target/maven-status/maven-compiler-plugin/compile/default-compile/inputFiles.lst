@@ -1,6 +1,7 @@
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\mapper\QuestionBankMapper.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\service\impl\KeywordResultServiceImpl.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\service\impl\SlideShowServiceImpl.java
+C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\controller\config\Swagger2Config.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\entity\KeywordSearchNum.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\service\UserService.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\service\impl\ChallengeResultServiceImpl.java
@@ -12,7 +13,6 @@ C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\vo\ImageResultVo.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\vo\SpeechResultVo.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\controller\UploadFileController.java
-C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\config\Swagger2Config.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\common\TokenHolder.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\mapper\ChallengeDetailMapper.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\common\ExcelListener.java
@@ -23,6 +23,7 @@ C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\service\impl\KeywordSearchNumServiceImpl.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\service\impl\ImageClassifyServiceImpl.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\controller\QuestionBankController.java
+C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\controller\AuthorizeController.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\controller\SlideShowController.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\entity\ChallengeResult.java
 C:\Users\Akinator\IdeaProjects\GarbageSort-master\backend\src\main\java\cn\lxsir\uniapp\service\impl\BaiduServiceImpl.java
