@@ -5,20 +5,20 @@ server:
 
 # 百度请求api 管理
 baidu:
-  appid:  25861884  # 这儿配置你的 appid
-  apikey: Bhh2gF0nAO4G6RzXXjMtzsTS # 这儿配置你的 appkey
-  secretkey: mNYLLMjgeLHq0siU6pxTEjsSCVCG3ZDy # 这儿配置你的 secretkey
+  appid:    # 这儿配置你的 appid
+  apikey:  # 这儿配置你的 appkey
+  secretkey:  # 这儿配置你的 secretkey
 
 weixin:
-  appid: wx5396e139a8774055
-  secret: 006c8d14af64261777831c3908b77afd
+  appid: 
+  secret: 
 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/garbagesort?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
     username: root  # 配置数据库用户
-    password: HHL1213013-  # 配置数据库密码
+    password: -  # 配置数据库密码
   #    url: jdbc:mysql://localhost:3306/garbagesort?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
   #    username: root  # 配置数据库用户
   #    password: root  # 配置数据库密码
@@ -40,16 +40,16 @@ mybatis-plus:
 # 文件路径管理
 upload:
   image:
-    path: /www/wwwroot/Chevereto/images/upload/image/
+    path: /www/wwwroot/images/upload/image/
   #    /opt/myservice/filepath/image/
-  #    path: /www/wwwroot/Chevereto/images/upload/image/    # linux or mac
+  #    path: /www/wwwroot/images/upload/image/    # linux or mac
   #    path: E:/testpath/image/                 # windows
   record:
-    path: /www/wwwroot/Chevereto/images/upload/record/
+    path: /www/wwwroot/images/upload/record/
     #/opt/myservice/filepath/record/
-  #    path: /www/wwwroot/Chevereto/images/upload/record   # linux or mac
+  #    path: /www/wwwroot/images/upload/record   # linux or mac
   #    path: E:/testpath/record/   # windows
   excel:
-    path: /www/wwwroot/Chevereto/images/upload/excel/
+    path: /www/wwwroot/images/upload/excel/
 #    path: E:/testpath/excel/
-#    /www/wwwroot/Chevereto/images/upload/record
+#    /www/wwwroot/images/upload/record
