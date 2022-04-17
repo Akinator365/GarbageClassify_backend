@@ -21,8 +21,10 @@ public interface ImageClassifyService extends IService<ImageClassify> {
 
     void imageHandle(String filename, JSONObject res, JSONObject resultVo, List<QuestionBank> questionBanks, QuestionBank questionBankOne);
 
-    Map<String, Object> imageMatch(Map<String,Object> imageInfoMap);
+    Map<String, Object> imageMatch(String fileName, String userid);
 
     String handleUploadFile(MultipartFile file, String path);
+
+    List<ImageClassify> imageHistory(Map<String,Object> useridMap);
 
 }

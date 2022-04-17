@@ -45,6 +45,7 @@ cn\lxsir\uniapp\service\impl\KeywordSearchNumServiceImpl.class
 cn\lxsir\uniapp\entity\ImageClassify.class
 cn\lxsir\uniapp\service\QuestionBankService.class
 cn\lxsir\uniapp\service\impl\KeywordResultServiceImpl.class
+cn\lxsir\uniapp\controller\HistoryController.class
 cn\lxsir\uniapp\service\UserService.class
 cn\lxsir\uniapp\controller\QuestionBankController.class
 cn\lxsir\uniapp\entity\ChallengeDetail.class

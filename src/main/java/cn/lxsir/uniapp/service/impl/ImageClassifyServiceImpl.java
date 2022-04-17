@@ -1,32 +1,41 @@
 package cn.lxsir.uniapp.service.impl;
 
-import cn.lxsir.uniapp.entity.ImageClassify;
-import cn.lxsir.uniapp.entity.KeywordResult;
-import cn.lxsir.uniapp.entity.KeywordSearchNum;
-import cn.lxsir.uniapp.entity.QuestionBank;
+import cn.lxsir.uniapp.entity.*;
 import cn.lxsir.uniapp.mapper.ImageClassifyMapper;
 import cn.lxsir.uniapp.service.ImageClassifyService;
 import cn.lxsir.uniapp.service.KeywordResultService;
 import cn.lxsir.uniapp.service.KeywordSearchNumService;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.collect.Maps;
 import lombok.extern.log4j.Log4j2;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Encoder;
 
-import java.io.File;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.sql.Struct;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * <p>
@@ -41,6 +50,8 @@ import java.util.UUID;
 public class ImageClassifyServiceImpl extends ServiceImpl<ImageClassifyMapper, ImageClassify> implements ImageClassifyService {
 
     @Autowired
+    RestTemplate restTemplate;
+    @Autowired
     KeywordResultService krService;
     @Autowired
     KeywordSearchNumService ksnService;
@@ -48,6 +59,7 @@ public class ImageClassifyServiceImpl extends ServiceImpl<ImageClassifyMapper, I
     @Async
     @Override
     public void imageHandle(String filename, JSONObject res, JSONObject resultVo, List<QuestionBank> questionBanks, QuestionBank questionBankOne) {
+
         log.error("应该为 3 ");
         final JSONArray jsonArray = res.getJSONArray("result");
         StringBuilder allKeyword=new StringBuilder();
@@ -75,10 +87,37 @@ public class ImageClassifyServiceImpl extends ServiceImpl<ImageClassifyMapper, I
     }
 
     @Override
-    public Map<String, Object> imageMatch(Map<String, Object> imageInfoMap) {
+    public Map<String, Object> imageMatch(String fileName, String userid) {
 
+        System.out.println("-----------------------filename:"+fileName);
+        String url = "http://ceshi.mua5201314.com/api/checkPic";
+        String base64 = ImageToBase64(fileName);
+        base64 = "data:image/jpg;base64,"+base64;
 
-        return null;
+        Map body = new HashMap();
+        body.put("image",base64);
+        com.alibaba.fastjson.JSONObject jsonObject = restTemplate.postForObject(url, JSON.toJSON(body),com.alibaba.fastjson.JSONObject.class);
+
+        String classify = jsonObject.get("content").toString();
+        String score = jsonObject.get("score").toString();
+        System.out.println(classify);
+
+        String type = classify.substring(0,classify.indexOf("/"));
+        String name = classify.substring(classify.indexOf("/")+1);
+
+        ImageClassify imageClassify = ImageClassify.builder().oneKeyword(name)
+                .userid(userid)
+                .type(type)
+                .score(score)
+                .filepath(fileName).build();
+        this.save(imageClassify);
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("result", name);
+        resultMap.put("type", type);
+        resultMap.put("score", score);
+        System.out.println(resultMap);
+        return resultMap;
     }
 
     @Override
@@ -109,5 +148,77 @@ public class ImageClassifyServiceImpl extends ServiceImpl<ImageClassifyMapper, I
             throw new RuntimeException("文件处理失败");
         }
         return dest.getAbsolutePath();
+    }
+
+    @Override
+    public List<ImageClassify> imageHistory(Map<String, Object> useridMap) {
+
+        Integer userid = ( Integer) useridMap.get("userid");
+
+        QueryWrapper<ImageClassify> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("times");
+        queryWrapper.eq("userid", userid);
+
+        List<ImageClassify> resultList = list(queryWrapper);
+
+        System.out.println(resultList);
+
+        return resultList;
+    }
+
+    public static byte[] readImage(String imgPath) {
+        byte[] data = null;
+        InputStream in = null;
+
+        // 读取图片字节数组
+        try {
+            in = new FileInputStream(imgPath);
+            data = new byte[in.available()];
+            in.read(data);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return data;
+    }
+
+    public static void saveImage(byte[] imageByte){
+        InputStream input = null;
+
+        try {
+            //转化成流
+            input = new ByteArrayInputStream(imageByte);
+            BufferedImage bi = ImageIO.read(input);
+            File file = new File("temp.png");
+            ImageIO.write(bi, "png", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static String ImageToBase64(String imgPath) {
+        byte[] data = readImage(imgPath);
+
+        // 对字节数组Base64编码
+        BASE64Encoder encoder = new BASE64Encoder();
+
+        // 返回Base64编码过的字节数组字符串
+        return encoder.encode(Objects.requireNonNull(data));
     }
 }

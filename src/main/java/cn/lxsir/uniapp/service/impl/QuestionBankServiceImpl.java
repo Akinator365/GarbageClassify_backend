@@ -46,13 +46,13 @@ public class QuestionBankServiceImpl extends ServiceImpl<QuestionBankMapper, Que
 
 
     @Override
-    public Map<String, Object> searchQuestionByUniName(String name) {
+    public Map<String, Object> searchQuestionByUniName(String name,String userid) {
         if(StringUtils.isEmpty(name)) {
             return null;
         }
         QuestionBank questionBank = qbService.getOne(new QueryWrapper<QuestionBank>().eq("garbage_name", name));
         List<QuestionBank> list = qbService.list(new QueryWrapper<QuestionBank>().like("garbage_name", name));
-        boolean keywordResultsSave = krService.save(KeywordResult.builder().keyword(name).result(JSON.toJSONString(list)).build());
+        boolean keywordResultsSave = krService.save(KeywordResult.builder().keyword(name).result(JSON.toJSONString(list)).userid(userid).build());
         KeywordSearchNum keywordNum = ksnService.getOne(new QueryWrapper<KeywordSearchNum>().eq("keyword", name));
         if(StringUtils.isEmpty(keywordNum)){
             keywordNum=KeywordSearchNum.builder().keyword(name).num(1).build();

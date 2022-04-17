@@ -4,6 +4,7 @@ import cn.lxsir.uniapp.service.BaiduService;
 import cn.lxsir.uniapp.service.CommonService;
 import cn.lxsir.uniapp.service.ImageClassifyService;
 import cn.lxsir.uniapp.service.QuestionBankService;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
@@ -40,6 +42,9 @@ public class UploadFileController {
     @Autowired
     QuestionBankService qbService;
 
+    @Autowired
+    RestTemplate restTemplate;
+
     @Value("${upload.image.path}")
     String imagePath;
     @Value("${upload.record.path}")
@@ -48,30 +53,21 @@ public class UploadFileController {
     String excelPath;
 
     @GetMapping("/test")
-    public R test(){
-        System.out.println("111");
-        Map<String, Object> map = new HashMap<>();
-        map.put("version","0.0.1");
-        map.put("imagePath",imagePath);
-        return R.ok(map);
-    }
+    public R test(@RequestParam String testLog){
+
+            log.info("testLog:"+testLog);
+            return R.ok(testLog);
+        }
 
     @PostMapping("/image")
     @ApiOperation(value = " 上传图像接口")
-    public R uploadImage(@RequestParam("file") MultipartFile file) {
+    public R uploadImage(@RequestParam("file") MultipartFile file,@RequestParam("userid") String userid) {
         if (file.isEmpty()) {
             return R.failed("文件为空");
         }
         String path = imageClassifyService.handleUploadFile(file,imagePath);
-        Map<String, Object> map = baiduService.imageClassify(path);
-        return R.ok(map);
-    }
-
-    @PostMapping("/imageIdentity")
-    @ApiOperation(value = "对图像的识别结果和图片进行匹配")
-    public R imageIdentity(@RequestParam Map<String,Object> imageInfoMap) {
-
-        Map<String, Object> map = imageClassifyService.imageMatch(imageInfoMap);
+        //Map<String, Object> map = baiduService.imageClassify(path);
+        Map<String, Object> map = imageClassifyService.imageMatch(path,userid);
         return R.ok(map);
     }
 

@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface QuestionBankService extends IService<QuestionBank> {
 
-    Map<String,Object> searchQuestionByUniName(String name);
+    Map<String,Object> searchQuestionByUniName(String name, String userid);
 
     Map<String,Object> uploadExcel(String filePath);
 

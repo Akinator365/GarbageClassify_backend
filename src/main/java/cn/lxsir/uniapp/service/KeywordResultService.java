@@ -1,7 +1,12 @@
 package cn.lxsir.uniapp.service;
 
+import cn.lxsir.uniapp.entity.ChallengeResult;
 import cn.lxsir.uniapp.entity.KeywordResult;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -12,5 +17,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-07-13
  */
 public interface KeywordResultService extends IService<KeywordResult> {
+
+    List<KeywordResult> keywordHistory(Map<String, Object> useridMap);
 
 }

@@ -1,6 +1,5 @@
 package cn.lxsir.uniapp.controller;
 
-import cn.lxsir.uniapp.entity.ChallengeResult;
 import cn.lxsir.uniapp.service.ChallengeResultService;
 import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.Api;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,10 +34,4 @@ public class ChallengeController {
         return R.ok(map1);
     }
 
-    @PostMapping("/history")
-    @ApiOperation(value = "返回挑战赛历史")
-    public R challengeHistory(@RequestBody  Map<String,Object> useridMap){
-        List<ChallengeResult> list = challengeResultService.challengeHistory(useridMap);
-        return R.ok(list);
-    }
 }

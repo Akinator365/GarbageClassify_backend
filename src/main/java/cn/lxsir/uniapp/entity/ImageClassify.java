@@ -46,8 +46,17 @@ public class ImageClassify implements Serializable {
     @TableField("user_name")
     private String userName;
 
+    @TableField("userid")
+    private String userid;
+
     @TableField("times")
     private LocalDateTime times;
+
+    @TableField("score")
+    private String score;
+
+    @TableField("type")
+    private String type;
 
 
 }

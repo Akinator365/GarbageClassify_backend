@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.lxsir.uniapp.mapper.KeywordResultMapper">
+    <select id="findKeywordWithNum" resultType="cn.lxsir.uniapp.entity.KeywordResult">
+        SELECT
+            keyword_result.*,
+            keyword_search_num.num
+        FROM
+            keyword_result,
+            keyword_search_num
+        WHERE
+            keyword_result.userid = #{userid} AND
+            keyword_result.keyword = keyword_search_num.keyword
+        ORDER BY times DESC
+    </select>
 
 </mapper>

@@ -58,7 +58,11 @@ public class ChallengeResultServiceImpl extends ServiceImpl<ChallengeResultMappe
 
         Integer userid = (Integer) useridMap.get("userid");
 
-        List<ChallengeResult> resultList = list(new QueryWrapper<ChallengeResult>().eq("userid", userid));
+        QueryWrapper<ChallengeResult> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("times");
+        queryWrapper.eq("userid", userid);
+
+        List<ChallengeResult> resultList = list(queryWrapper);
 
         System.out.println(resultList);
 

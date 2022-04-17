@@ -32,11 +32,10 @@ public class Swagger2Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Spring Boot中使用Swagger2构建RESTful APIs")
-                .description("ks wms RESTful APIs")
+                .title("垃圾识别微信小程序API文档")
+                .description("RESTful APIs")
                 .termsOfServiceUrl("http://localhost:8899/wx/doc.html")
-                .contact("luoxiang")
-                .version("1.0")
+                .version("2.0")
                 .build();
     }
 

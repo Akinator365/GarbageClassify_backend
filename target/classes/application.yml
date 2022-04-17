@@ -18,10 +18,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/garbagesort?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
     username: root  # 配置数据库用户
-    password: 65516423  # 配置数据库密码
-#    url: jdbc:mysql://localhost:3306/garbagesort?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
-#    username: root  # 配置数据库用户
-#    password: root  # 配置数据库密码
+    password: HHL1213013-  # 配置数据库密码
+  #    url: jdbc:mysql://localhost:3306/garbagesort?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+  #    username: root  # 配置数据库用户
+  #    password: root  # 配置数据库密码
   servlet:
     multipart:
       max-file-size: 10MB
@@ -40,17 +40,16 @@ mybatis-plus:
 # 文件路径管理
 upload:
   image:
-    path: E:/testpath/image/
-#    /opt/myservice/filepath/image/
-#    path: /Users/luoxiang/testpath/image/    # linux or mac
-#    path: E:/testpath/image/                 # windows
+    path: /www/wwwroot/Chevereto/images/upload/image/
+  #    /opt/myservice/filepath/image/
+  #    path: /www/wwwroot/Chevereto/images/upload/image/    # linux or mac
+  #    path: E:/testpath/image/                 # windows
   record:
-    path: E:/testpath/record/
+    path: /www/wwwroot/Chevereto/images/upload/record/
     #/opt/myservice/filepath/record/
-#    path: /Users/luoxiang/testpath/record/   # linux or mac
-#    path: E:/testpath/record/   # windows
+  #    path: /www/wwwroot/Chevereto/images/upload/record   # linux or mac
+  #    path: E:/testpath/record/   # windows
   excel:
-    path: /opt/myservice/filepath/excel/
+    path: /www/wwwroot/Chevereto/images/upload/excel/
 #    path: E:/testpath/excel/
-
-
+#    /www/wwwroot/Chevereto/images/upload/record

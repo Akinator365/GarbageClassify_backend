@@ -53,13 +53,12 @@ public class QuestionBankController {
         return R.ok(list);
     }
 
-    @GetMapping("/uniname/{name}")
+    @GetMapping("/uniname/{userid}/{name}")
     @ApiOperation(value = "根据名称精准查询垃圾分类")
-    public R searchQuestionByUniName(@PathVariable("name") String name){
-        Map<String, Object> map = qbService.searchQuestionByUniName(name);
+    public R searchQuestionByUniName(@PathVariable("name") String name,@PathVariable("userid") String userid){
+        Map<String, Object> map = qbService.searchQuestionByUniName(name,userid);
         return R.ok(map);
     }
-
 
 
     @GetMapping("/type/{type}")
